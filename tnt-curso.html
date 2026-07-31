@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TNT — Curso Barbearia TNT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0b0b0d;
+    --black-2:#141416;
+    --red:#c81d25;
+    --red-dark:#7c1116;
+    --white:#f5f3ee;
+    --spark:#ffb020;
+    --gray:#8a8a86;
+    --line:rgba(245,243,238,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Work Sans', sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--spark);
+    font-weight:600;
+  }
+  h1,h2,h3{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.95;
+    text-transform:uppercase;
+  }
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer; border:none;}
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:linear-gradient(to bottom, rgba(11,11,13,0.95), rgba(11,11,13,0));
+  }
+  .nav-brand{display:flex; align-items:center; gap:10px;}
+  .nav-brand img{width:34px; height:34px; border-radius:50%;}
+  .nav-brand span{font-family:'Anton',sans-serif; font-size:20px; letter-spacing:0.05em;}
+  .nav-actions button{
+    background:transparent; color:var(--white); border:1px solid var(--line);
+    padding:9px 20px; border-radius:999px; font-size:13px; font-weight:600;
+    transition:border-color .2s;
+  }
+  .nav-actions button:hover{border-color:var(--red);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:120px 6vw 80px;
+    position:relative;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 15%, rgba(200,29,37,0.25), transparent 60%),
+      var(--black);
+  }
+  .hero-logo{width:88px; height:88px; border-radius:50%; margin-bottom:28px; box-shadow:0 0 0 1px var(--line);}
+  .hero h1{font-size:clamp(44px, 8vw, 108px); max-width:16ch;}
+  .hero h1 .accent{color:var(--red);}
+  .hero p.sub{
+    margin-top:24px; font-size:18px; color:var(--gray); max-width:46ch; line-height:1.5;
+  }
+  .fuse-btn{
+    margin-top:40px;
+    position:relative;
+    background:var(--red);
+    color:var(--white);
+    padding:17px 38px;
+    border-radius:999px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    overflow:visible;
+    display:inline-flex; align-items:center; gap:10px;
+    box-shadow:0 8px 30px -8px rgba(200,29,37,0.6);
+  }
+  .fuse-btn:hover{background:var(--red-dark);}
+  .fuse-dot{
+    width:8px; height:8px; border-radius:50%; background:var(--spark);
+    box-shadow:0 0 12px 3px var(--spark);
+    animation:spark 1.1s infinite ease-in-out;
+  }
+  @keyframes spark{ 0%,100%{opacity:.4; transform:scale(.8);} 50%{opacity:1; transform:scale(1.3);} }
+  .hero-note{margin-top:18px; font-size:12px; color:var(--gray); font-family:'JetBrains Mono',monospace;}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:110px 6vw;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(30px,4.2vw,48px); margin-top:14px;}
+  .section-head p{color:var(--gray); margin-top:16px; font-size:16px; line-height:1.6;}
+
+  /* ---------- MODULES (dynamite sticks) ---------- */
+  .sticks{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+  }
+  .stick{
+    background:var(--black-2);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:26px 22px 30px;
+    position:relative;
+    transition:transform .2s, border-color .2s;
+  }
+  .stick:hover{transform:translateY(-4px); border-color:var(--red);}
+  .stick .num{
+    font-family:'Anton',sans-serif; font-size:15px; color:var(--red);
+    display:flex; align-items:center; gap:8px;
+  }
+  .stick .num::before{content:''; width:18px; height:2px; background:var(--red); display:inline-block;}
+  .stick h3{font-size:22px; margin-top:14px; text-transform:none; font-family:'Work Sans',sans-serif; font-weight:700;}
+  .stick p{color:var(--gray); font-size:14px; margin-top:10px; line-height:1.55;}
+
+  /* ---------- PRICE / CTA BAND ---------- */
+  .band{
+    background:var(--red);
+    text-align:center;
+    padding:90px 6vw;
+  }
+  .band h2{font-size:clamp(32px,5vw,56px); color:var(--black);}
+  .band p{color:rgba(11,11,13,0.75); margin-top:14px; font-size:16px;}
+  .band .fuse-btn{background:var(--black); margin-top:34px;}
+  .band .fuse-btn:hover{background:#000;}
+
+  footer{padding:40px 6vw; text-align:center; color:var(--gray); font-size:13px; border-top:1px solid var(--line);}
+
+  /* ---------- LOGIN ---------- */
+  .auth-wrap{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+    background:radial-gradient(ellipse 50% 40% at 50% 0%, rgba(200,29,37,0.18), transparent 60%), var(--black);
+  }
+  .auth-card{
+    width:100%; max-width:380px;
+    background:var(--black-2); border:1px solid var(--line); border-radius:20px;
+    padding:40px 32px;
+  }
+  .auth-card img{width:52px; height:52px; border-radius:50%; margin-bottom:18px;}
+  .auth-card h2{font-size:26px;}
+  .auth-card p.hint{color:var(--gray); font-size:13px; margin-top:8px; margin-bottom:28px;}
+  .field{margin-bottom:16px;}
+  .field label{font-size:12px; color:var(--gray); display:block; margin-bottom:6px; font-family:'JetBrains Mono',monospace; letter-spacing:0.05em;}
+  .field input{
+    width:100%; background:var(--black); border:1px solid var(--line); border-radius:10px;
+    padding:13px 14px; color:var(--white); font-size:14px; font-family:'Work Sans',sans-serif;
+  }
+  .field input:focus{outline:none; border-color:var(--red);}
+  .auth-submit{
+    width:100%; background:var(--red); color:var(--white); padding:14px; border-radius:10px;
+    font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:0.03em; margin-top:8px;
+  }
+  .auth-submit:hover{background:var(--red-dark);}
+  .auth-back{display:block; text-align:center; margin-top:18px; font-size:13px; color:var(--gray);}
+  .auth-back:hover{color:var(--white);}
+
+  /* ---------- DASHBOARD ---------- */
+  .dash{min-height:100vh; padding:100px 6vw 60px;}
+  .dash-head{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px; margin-bottom:50px;}
+  .dash-head h2{font-size:clamp(28px,4vw,44px);}
+  .dash-head p{color:var(--gray); margin-top:8px;}
+  .logout-link{font-size:13px; color:var(--gray); border:1px solid var(--line); padding:9px 18px; border-radius:999px;}
+  .logout-link:hover{border-color:var(--red); color:var(--white);}
+
+  .fuse-track{position:relative; padding-left:26px; margin-top:10px;}
+  .fuse-line{position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:var(--line);}
+  .mod-item{
+    position:relative; display:flex; align-items:center; gap:20px;
+    background:var(--black-2); border:1px solid var(--line); border-radius:14px;
+    padding:20px 22px; margin-bottom:14px; transition:border-color .2s;
+  }
+  .mod-item.unlocked{cursor:pointer;}
+  .mod-item.unlocked:hover{border-color:var(--red);}
+  .mod-item.locked{opacity:0.45;}
+  .mod-dot{
+    position:absolute; left:-26px; width:20px; height:20px; border-radius:50%;
+    background:var(--black); border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .mod-item.done .mod-dot{border-color:var(--spark); background:var(--spark);}
+  .mod-item.active .mod-dot{border-color:var(--red); box-shadow:0 0 0 4px rgba(200,29,37,0.25);}
+  .mod-num{font-family:'Anton',sans-serif; font-size:13px; color:var(--red); min-width:52px;}
+  .mod-info h3{font-family:'Work Sans',sans-serif; font-weight:700; font-size:16px; text-transform:none;}
+  .mod-info p{font-size:13px; color:var(--gray); margin-top:4px;}
+  .mod-status{margin-left:auto; font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--gray); white-space:nowrap;}
+  .mod-item.done .mod-status{color:var(--spark);}
+
+  /* ---------- PLAYER ---------- */
+  .player-wrap{min-height:100vh; padding:100px 6vw 60px;}
+  .back-link{font-size:13px; color:var(--gray); display:inline-flex; align-items:center; gap:6px; margin-bottom:24px;}
+  .back-link:hover{color:var(--white);}
+  .player-box{max-width:900px; margin:0 auto;}
+  .player-eyebrow{margin-bottom:10px;}
+  .player-box h2{font-size:clamp(26px,3.6vw,38px); margin-bottom:24px;}
+  video{width:100%; border-radius:16px; border:1px solid var(--line); background:#000;}
+  .complete-btn{
+    margin-top:24px; background:var(--red); color:var(--white); padding:14px 30px;
+    border-radius:999px; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .complete-btn:hover{background:var(--red-dark);}
+  .complete-btn:disabled{background:var(--spark); color:var(--black); cursor:default;}
+
+  @media (max-width:640px){
+    section{padding:70px 6vw;}
+    .dash{padding-top:90px;}
+    .player-wrap{padding-top:90px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<div class="nav" id="mainNav">
+  <div class="nav-brand">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/240px-No-Image-Placeholder.svg.png" id="navLogo" alt="TNT">
+    <span>TNT</span>
+  </div>
+  <div class="nav-actions"><button onclick="showView('login')">Entrar</button></div>
+</div>
+
+<!-- ============ LANDING ============ -->
+<div class="view active" id="view-landing">
+  <section class="hero">
+    <img class="hero-logo" id="heroLogo" alt="Barbearia TNT">
+    <div class="eyebrow">Barbearia TNT · Caiky Dantas</div>
+    <h1>Detona sua <span class="accent">navalha.</span><br>Vira barbeiro fera.</h1>
+    <p class="sub">Curso 100% em vídeo, direto do Caiky Dantas, dividido em módulos que você libera na sequência — do fio de cabelo ao acabamento de navalha.</p>
+    <button class="fuse-btn" onclick="showView('login')"><span class="fuse-dot"></span> Acender o curso</button>
+    <div class="hero-note">ACESSO IMEDIATO · LIBERAÇÃO POR MÓDULO</div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div class="eyebrow">A carga</div>
+      <h2>Os módulos que vão te detonar no mercado</h2>
+      <p>Cada módulo é uma carga liberada só depois que você conclui a anterior — sem pular etapa, sem gambiarra no corte.</p>
+    </div>
+    <div class="sticks">
+      <div class="stick"><div class="num">Módulo 01</div><h3>Fundamentos da navalha</h3><p>Pega de mão, ângulo de corte e afiação — a base de tudo antes de encostar num cliente de verdade.</p></div>
+      <div class="stick"><div class="num">Módulo 02</div><h3>Degradê na régua</h3><p>Transições limpas, leitura de textura de cabelo e os erros mais comuns de quem tá começando.</p></div>
+      <div class="stick"><div class="num">Módulo 03</div><h3>Barba e acabamento</h3><p>Contorno, desenho e o acabamento que faz o cliente voltar toda semana.</p></div>
+      <div class="stick"><div class="num">Módulo 04</div><h3>Atendimento que fideliza</h3><p>Como o Caiky monta uma agenda cheia sem depender de promoção.</p></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <h2>Bora acender essa mecha?</h2>
+    <p>Acesso completo aos módulos, no seu ritmo, direto do celular.</p>
+    <button class="fuse-btn" onclick="showView('login')"><span class="fuse-dot"></span> Quero entrar no curso</button>
+  </section>
+
+  <footer>Barbearia TNT · Curso online · Caiky Dantas</footer>
+</div>
+
+<!-- ============ LOGIN ============ -->
+<div class="view" id="view-login">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <img id="loginLogo" alt="TNT">
+      <h2>Entrar no curso</h2>
+      <p class="hint">Piloto de demonstração — qualquer e-mail e senha liberam o acesso.</p>
+      <div class="field"><label>E-mail</label><input type="email" id="loginEmail" placeholder="voce@email.com"></div>
+      <div class="field"><label>Senha</label><input type="password" id="loginPass" placeholder="••••••••"></div>
+      <button class="auth-submit" onclick="doLogin()">Entrar</button>
+      <a class="auth-back" onclick="showView('landing')">← Voltar pro site</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div class="view" id="view-dashboard">
+  <div class="dash">
+    <div class="dash-head">
+      <div>
+        <div class="eyebrow">Sua trilha</div>
+        <h2>Módulos do curso</h2>
+        <p>Conclua um módulo pra acender o próximo.</p>
+      </div>
+      <a class="logout-link" onclick="doLogout()">Sair</a>
+    </div>
+    <div class="fuse-track">
+      <div class="fuse-line"></div>
+      <div id="modulesList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PLAYER ============ -->
+<div class="view" id="view-player">
+  <div class="player-wrap">
+    <a class="back-link" onclick="showView('dashboard')">← Voltar aos módulos</a>
+    <div class="player-box">
+      <div class="eyebrow player-eyebrow" id="playerEyebrow">Módulo 01</div>
+      <h2 id="playerTitle">Fundamentos da navalha</h2>
+      <video id="playerVideo" controls poster="">
+        <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+        Seu navegador não suporta vídeo.
+      </video>
+      <button class="complete-btn" id="completeBtn" onclick="completeModule()">Concluir módulo e liberar o próximo</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Logo TNT recriada em SVG (bomba com estopim aceso, no estilo da marca)
+const LOGO_SVG = `data:image/svg+xml;utf8,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="100" fill="#0b0b0d"/>
+  <g stroke="#c81d25" stroke-width="7" stroke-linecap="round">
+    <line x1="118" y1="55" x2="118" y2="18"/>
+    <line x1="132" y1="60" x2="155" y2="32"/>
+    <line x1="141" y1="72" x2="172" y2="60"/>
+    <line x1="141" y1="88" x2="172" y2="96"/>
+    <line x1="132" y1="100" x2="152" y2="122"/>
+    <line x1="104" y1="60" x2="92" y2="26"/>
+    <line x1="112" y1="66" x2="88" y2="46"/>
+  </g>
+  <path d="M100 92 C88 78, 100 62, 118 58" fill="none" stroke="#f5f3ee" stroke-width="7" stroke-linecap="round"/>
+  <rect x="96" y="90" width="24" height="18" rx="3" fill="#0b0b0d" stroke="#c81d25" stroke-width="4"/>
+  <path d="M70 175 C40 170, 25 145, 30 118 C35 88, 65 68, 100 70 C125 71, 145 88, 150 112 C154 132, 146 155, 128 168 C110 180, 88 180, 70 175 Z" fill="#c81d25"/>
+  <path d="M150 112 C154 132, 146 155, 128 168 C118 174, 106 177, 95 177 C118 168, 132 140, 128 112 C125 90, 108 74, 90 71 C125 71, 145 88, 150 112 Z" fill="#0b0b0d"/>
+  <path d="M62 92 C68 84, 78 79, 88 78" fill="none" stroke="#f5f3ee" stroke-width="6" stroke-linecap="round"/>
+  <text x="100" y="140" font-family="Arial, sans-serif" font-weight="900" font-size="46" fill="#f5f3ee" text-anchor="middle" letter-spacing="-1">TNT</text>
+</svg>
+`)}`;
+document.getElementById('navLogo').src = LOGO_SVG;
+document.getElementById('heroLogo').src = LOGO_SVG;
+document.getElementById('loginLogo').src = LOGO_SVG;
+
+const modules = [
+  {title:"Fundamentos da navalha", desc:"Pega de mão, ângulo e afiação."},
+  {title:"Degradê na régua", desc:"Transições e leitura de textura."},
+  {title:"Barba e acabamento", desc:"Contorno, desenho e finalização."},
+  {title:"Atendimento que fideliza", desc:"Agenda cheia sem depender de promoção."}
+];
+
+let state = { loggedIn:false, completed:[], currentModule:0 };
+
+function showView(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.getElementById('mainNav').style.display = (name==='landing') ? 'flex' : 'none';
+  window.scrollTo(0,0);
+}
+
+async function loadState(){
+  try{
+    const res = await window.storage.get('tnt-progress');
+    if(res && res.value){ state = JSON.parse(res.value); }
+  }catch(e){ /* no saved state yet */ }
+}
+async function saveState(){
+  try{ await window.storage.set('tnt-progress', JSON.stringify(state)); }catch(e){ console.error('storage error', e); }
+}
+
+function doLogin(){
+  state.loggedIn = true;
+  saveState();
+  renderModules();
+  showView('dashboard');
+}
+function doLogout(){
+  state.loggedIn = false;
+  saveState();
+  showView('landing');
+}
+
+function renderModules(){
+  const list = document.getElementById('modulesList');
+  list.innerHTML = '';
+  modules.forEach((m, i)=>{
+    const done = state.completed.includes(i);
+    const unlocked = i===0 || state.completed.includes(i-1);
+    const div = document.createElement('div');
+    div.className = 'mod-item ' + (unlocked ? 'unlocked' : 'locked') + (done ? ' done' : '');
+    div.innerHTML = `
+      <div class="mod-dot"></div>
+      <div class="mod-num">MOD ${String(i+1).padStart(2,'0')}</div>
+      <div class="mod-info"><h3>${m.title}</h3><p>${m.desc}</p></div>
+      <div class="mod-status">${done ? 'Concluído' : unlocked ? 'Disponível' : 'Bloqueado'}</div>
+    `;
+    if(unlocked){ div.onclick = ()=> openModule(i); }
+    list.appendChild(div);
+  });
+}
+
+function openModule(i){
+  state.currentModule = i;
+  document.getElementById('playerEyebrow').textContent = 'Módulo ' + String(i+1).padStart(2,'0');
+  document.getElementById('playerTitle').textContent = modules[i].title;
+  const btn = document.getElementById('completeBtn');
+  const already = state.completed.includes(i);
+  btn.disabled = already;
+  btn.textContent = already ? 'Módulo já concluído' : 'Concluir módulo e liberar o próximo';
+  showView('player');
+}
+
+function completeModule(){
+  const i = state.currentModule;
+  if(!state.completed.includes(i)) state.completed.push(i);
+  saveState();
+  renderModules();
+  showView('dashboard');
+}
+
+loadState().then(()=>{
+  if(state.loggedIn){ renderModules(); showView('dashboard'); }
+});
+</script>
+</body>
+</html>
