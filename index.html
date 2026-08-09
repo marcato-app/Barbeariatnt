@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia TNT — Link na Bio</title>
+<meta name="description" content="Barbearia TNT — agende seu horário, siga no Instagram e conheça o endereço.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0b0b0d;
+    --black-2:#141416;
+    --red:#c81d25;
+    --red-dark:#7c1116;
+    --white:#f5f3ee;
+    --spark:#ffb020;
+    --gray:#8a8a86;
+    --line:rgba(245,243,238,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Work Sans', sans-serif;
+    min-height:100vh;
+  }
+  a{color:inherit; text-decoration:none;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--spark);
+    font-weight:600;
+  }
+  h1,h2,h3{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.95;
+    text-transform:uppercase;
+  }
+
+  .page{
+    max-width:460px;
+    margin:0 auto;
+    padding:56px 24px 40px;
+    position:relative;
+  }
+  body{
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(200,29,37,0.25), transparent 60%),
+      var(--black);
+  }
+
+  /* ---------- PROFILE ---------- */
+  .profile{ text-align:center; margin-bottom:32px; }
+  .profile-logo{
+    width:96px; height:96px; border-radius:50%;
+    margin:0 auto 18px;
+    box-shadow:0 0 0 1px var(--line), 0 12px 30px -10px rgba(200,29,37,0.6);
+  }
+  .profile h1{ font-size:clamp(30px,7vw,40px); }
+  .profile p.tag{ color:var(--gray); margin-top:10px; font-size:14px; line-height:1.5; }
+
+  /* ---------- LINK BUTTONS ---------- */
+  .links{ display:flex; flex-direction:column; gap:14px; margin-bottom:36px; }
+  .link-btn{
+    display:flex; align-items:center; gap:14px;
+    background:var(--black-2);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:17px 20px;
+    transition:transform .15s, border-color .15s, background .15s;
+  }
+  .link-btn:hover{ transform:translateY(-2px); border-color:var(--red); }
+  .link-btn.primary{
+    background:var(--red);
+    border-color:var(--red);
+  }
+  .link-btn.primary:hover{ background:var(--red-dark); border-color:var(--red-dark); }
+  .link-icon{
+    width:40px; height:40px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(245,243,238,0.06);
+    flex-shrink:0;
+  }
+  .link-btn.primary .link-icon{ background:rgba(11,11,13,0.2); }
+  .link-icon svg{ width:20px; height:20px; }
+  .link-text{ flex:1; display:flex; flex-direction:column; gap:2px; }
+  .link-text .title{ font-weight:700; font-size:15px; }
+  .link-text .sub{ font-size:12.5px; color:var(--gray); }
+  .link-btn.primary .link-text .sub{ color:rgba(11,11,13,0.75); }
+  .link-arrow{ color:var(--gray); font-size:18px; }
+  .link-btn.primary .link-arrow{ color:var(--black); }
+  .fuse-dot{
+    width:7px; height:7px; border-radius:50%; background:var(--spark);
+    box-shadow:0 0 10px 2px var(--spark);
+    animation:spark 1.1s infinite ease-in-out;
+    flex-shrink:0;
+  }
+  @keyframes spark{ 0%,100%{opacity:.4; transform:scale(.8);} 50%{opacity:1; transform:scale(1.3);} }
+
+  /* ---------- TEAM ---------- */
+  .section-head{ margin-bottom:18px; text-align:center; }
+  .section-head h2{ font-size:clamp(24px,5.5vw,30px); margin-top:8px; }
+  .team{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:14px;
+    margin-bottom:36px;
+  }
+  .member{
+    background:var(--black-2);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    text-align:center;
+    transition:border-color .15s, transform .15s;
+  }
+  .member:hover{ border-color:var(--red); transform:translateY(-2px); }
+  .member .photo-wrap{
+    width:100%; aspect-ratio:3/4; overflow:hidden; background:#000;
+  }
+  .member img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .member .info{ padding:12px 10px 16px; }
+  .member .info h3{
+    font-family:'Work Sans',sans-serif; font-weight:700; text-transform:none;
+    font-size:14.5px; letter-spacing:0;
+  }
+  .member .info p{ font-size:11.5px; color:var(--gray); margin-top:3px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.04em; }
+
+  /* ---------- MAP / ADDRESS ---------- */
+  .address-card{
+    background:var(--black-2);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px;
+    display:flex; align-items:flex-start; gap:14px;
+    margin-bottom:36px;
+  }
+  .address-card .link-icon{ margin-top:2px; }
+  .address-card h3{
+    font-family:'Work Sans',sans-serif; font-weight:700; text-transform:none; font-size:15px;
+  }
+  .address-card p{ font-size:13.5px; color:var(--gray); margin-top:6px; line-height:1.5; }
+  .address-card a.maps{
+    display:inline-block; margin-top:10px; font-size:12.5px; color:var(--spark);
+    font-family:'JetBrains Mono',monospace; letter-spacing:0.03em;
+  }
+  .address-card a.maps:hover{ text-decoration:underline; }
+
+  footer{ text-align:center; color:var(--gray); font-size:12px; padding-top:12px; }
+  footer .fh{ font-family:'JetBrains Mono',monospace; letter-spacing:0.05em; }
+
+  @media (max-width:360px){
+    .page{ padding:44px 16px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ============ PROFILE ============ -->
+  <div class="profile">
+    <img class="profile-logo" id="profileLogo" alt="Barbearia TNT">
+    <h1>Barbearia <span style="color:var(--red)">TNT</span></h1>
+    <p class="tag">Estilo, precisão e atitude. Confira nossos canais, agende seu horário e venha conhecer a barbearia.</p>
+  </div>
+
+  <!-- ============ LINKS ============ -->
+  <div class="links">
+    <a class="link-btn primary" href="https://apps.apple.com/br/app/tnt-barbearia/id6793197103" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 8v8M8 12h8" stroke="#0b0b0d" stroke-width="2" stroke-linecap="round"/><rect x="3" y="3" width="18" height="18" rx="5" stroke="#0b0b0d" stroke-width="2"/></svg>
+      </span>
+      <span class="link-text">
+        <span class="title">Agendar horário</span>
+        <span class="sub">App TNT Barbearia · App Store</span>
+      </span>
+      <span class="fuse-dot"></span>
+    </a>
+
+    <a class="link-btn" href="https://www.instagram.com/barbeariatnt?igsh=YW03ZzBlYnc1d2pw" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#f5f3ee" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="#f5f3ee" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.1" fill="#f5f3ee"/></svg>
+      </span>
+      <span class="link-text">
+        <span class="title">Seguir no Instagram</span>
+        <span class="sub">@barbeariatnt</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <a class="link-btn" href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Freixos+55+Dos+Casas+S%C3%A3o+Bernardo+do+Campo" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z" stroke="#f5f3ee" stroke-width="2"/><circle cx="12" cy="9.5" r="2.5" stroke="#f5f3ee" stroke-width="2"/></svg>
+      </span>
+      <span class="link-text">
+        <span class="title">Como chegar</span>
+        <span class="sub">Rua dos Freixos, 55 · Dos Casas, São Bernardo do Campo</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <!-- ============ TEAM ============ -->
+  <div class="section-head">
+    <div class="eyebrow">A equipe</div>
+    <h2>Nossos barbeiros</h2>
+  </div>
+  <div class="team">
+    <div class="member">
+      <div class="photo-wrap"><img src="assets/equipe/caiky-dantas.jpeg" alt="Caiky Dantas" loading="lazy"></div>
+      <div class="info"><h3>Caiky Dantas</h3><p>Barbeiro</p></div>
+    </div>
+    <div class="member">
+      <div class="photo-wrap"><img src="assets/equipe/kaua-morais.jpeg" alt="Kaua Morais" loading="lazy"></div>
+      <div class="info"><h3>Kaua Morais</h3><p>Barbeiro</p></div>
+    </div>
+    <div class="member">
+      <div class="photo-wrap"><img src="assets/equipe/pedro.jpeg" alt="Pedro" loading="lazy"></div>
+      <div class="info"><h3>Pedro</h3><p>Barbeiro</p></div>
+    </div>
+    <div class="member">
+      <div class="photo-wrap"><img src="assets/equipe/arthur-hengler.jpeg" alt="Arthur Hengler" loading="lazy"></div>
+      <div class="info"><h3>Arthur Hengler</h3><p>Barbeiro</p></div>
+    </div>
+    <div class="member" style="grid-column: 1 / -1; max-width:calc(50% - 7px); margin:0 auto;">
+      <div class="photo-wrap"><img src="assets/equipe/heryck-saymohn.jpeg" alt="Heryck Saymohn" loading="lazy"></div>
+      <div class="info"><h3>Heryck Saymohn</h3><p>Barbeiro</p></div>
+    </div>
+  </div>
+
+  <!-- ============ ADDRESS ============ -->
+  <div class="address-card">
+    <span class="link-icon">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z" stroke="#f5f3ee" stroke-width="2"/><circle cx="12" cy="9.5" r="2.5" stroke="#f5f3ee" stroke-width="2"/></svg>
+    </span>
+    <div>
+      <h3>Endereço</h3>
+      <p>Rua dos Freixos, nº 55 — Dos Casas, São Bernardo do Campo</p>
+      <a class="maps" href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Freixos+55+Dos+Casas+S%C3%A3o+Bernardo+do+Campo" target="_blank" rel="noopener">Abrir no Google Maps →</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="fh">BARBEARIA TNT</div>
+    <div style="margin-top:4px;">© 2026 · Todos os direitos reservados</div>
+  </footer>
+
+</div>
+
+<script>
+const LOGO_SVG = `data:image/svg+xml;utf8,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="100" fill="#0b0b0d"/>
+  <g stroke="#c81d25" stroke-width="7" stroke-linecap="round">
+    <line x1="118" y1="55" x2="118" y2="18"/>
+    <line x1="132" y1="60" x2="155" y2="32"/>
+    <line x1="141" y1="72" x2="172" y2="60"/>
+    <line x1="141" y1="88" x2="172" y2="96"/>
+    <line x1="132" y1="100" x2="152" y2="122"/>
+    <line x1="104" y1="60" x2="92" y2="26"/>
+    <line x1="112" y1="66" x2="88" y2="46"/>
+  </g>
+  <path d="M100 92 C88 78, 100 62, 118 58" fill="none" stroke="#f5f3ee" stroke-width="7" stroke-linecap="round"/>
+  <rect x="96" y="90" width="24" height="18" rx="3" fill="#0b0b0d" stroke="#c81d25" stroke-width="4"/>
+  <path d="M70 175 C40 170, 25 145, 30 118 C35 88, 65 68, 100 70 C125 71, 145 88, 150 112 C154 132, 146 155, 128 168 C110 180, 88 180, 70 175 Z" fill="#c81d25"/>
+  <path d="M150 112 C154 132, 146 155, 128 168 C118 174, 106 177, 95 177 C118 168, 132 140, 128 112 C125 90, 108 74, 90 71 C125 71, 145 88, 150 112 Z" fill="#0b0b0d"/>
+  <path d="M62 92 C68 84, 78 79, 88 78" fill="none" stroke="#f5f3ee" stroke-width="6" stroke-linecap="round"/>
+  <text x="100" y="140" font-family="Arial, sans-serif" font-weight="900" font-size="46" fill="#f5f3ee" text-anchor="middle" letter-spacing="-1">TNT</text>
+</svg>
+`)}`;
+document.getElementById('profileLogo').src = LOGO_SVG;
+</script>
+</body>
+</html>
