@@ -99,30 +99,31 @@
   .profile p.tag{ color:var(--gray); margin-top:10px; font-size:14px; line-height:1.5; }
 
   /* ---------- LINK BUTTONS ---------- */
-  .links{ display:flex; flex-direction:column; gap:14px; margin-bottom:36px; }
-  .link-pill{
-    display:flex; align-items:center; justify-content:center;
-    background:var(--black-2);
+  .links{ display:flex; flex-direction:column; gap:12px; margin-bottom:36px; }
+  .link-card{
+    display:flex; align-items:center; gap:14px;
+    background:rgba(20,20,22,0.55);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
     border:1px solid var(--line);
     border-radius:16px;
-    padding:19px 20px;
-    text-align:center;
-    font-weight:700; font-size:15.5px;
+    padding:15px 16px;
     transition:transform .15s, border-color .15s, background .15s;
   }
-  .link-pill:hover{ transform:translateY(-2px); border-color:var(--red); }
-  .link-pill.primary{
-    background:var(--red);
-    border-color:var(--red);
-  }
-  .link-pill.primary:hover{ background:var(--red-dark); border-color:var(--red-dark); }
+  .link-card:hover{ transform:translateY(-2px); border-color:var(--red); }
+  .link-card.primary{ border-color:rgba(200,29,37,0.55); }
+  .link-card.primary:hover{ border-color:var(--red); }
   .link-icon{
-    width:40px; height:40px; border-radius:10px;
+    width:42px; height:42px; border-radius:12px;
     display:flex; align-items:center; justify-content:center;
-    background:rgba(245,243,238,0.06);
+    background:rgba(200,29,37,0.12);
+    border:1px solid rgba(200,29,37,0.35);
     flex-shrink:0;
   }
   .link-icon svg{ width:20px; height:20px; }
+  .link-body{ flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
+  .link-body .title{ font-weight:700; font-size:15px; }
+  .link-body .sub{ font-size:12px; color:var(--gray); }
+  .link-chevron{ color:var(--spark); font-size:20px; flex-shrink:0; line-height:1; }
 
   /* ---------- TEAM ---------- */
   .section-head{ margin-bottom:18px; text-align:center; }
@@ -207,24 +208,35 @@
   .drag-hint.gallery-hint{ margin:-24px 0 36px; }
 
   /* ---------- MAP / ADDRESS ---------- */
-  .address-card{
-    background:var(--black-2);
+  .map-card{
+    background:rgba(20,20,22,0.55);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
     border:1px solid var(--line);
     border-radius:16px;
-    padding:20px;
-    display:flex; align-items:flex-start; gap:14px;
+    overflow:hidden;
     margin-bottom:36px;
   }
-  .address-card .link-icon{ margin-top:2px; }
-  .address-card h3{
-    font-family:'Poppins',sans-serif; font-weight:700; font-size:15px;
+  .map-preview{ position:relative; height:170px; background:#141416; }
+  .map-preview iframe{
+    width:100%; height:100%; border:0; display:block;
+    filter:grayscale(.2) brightness(.82) contrast(1.05);
+    pointer-events:none;
   }
-  .address-card p{ font-size:13.5px; color:var(--gray); margin-top:6px; line-height:1.5; }
-  .address-card a.maps{
-    display:inline-block; margin-top:10px; font-size:12.5px; color:var(--spark);
-    font-family:'Poppins',sans-serif; font-weight:600; letter-spacing:0.02em;
+  .maps-badge{
+    position:absolute; top:12px; left:12px;
+    display:inline-flex; align-items:center; gap:5px;
+    background:rgba(11,11,13,0.75);
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    border:1px solid var(--line);
+    color:var(--white); font-size:12px; font-weight:600;
+    padding:7px 12px; border-radius:999px;
   }
-  .address-card a.maps:hover{ text-decoration:underline; }
+  .map-card .link-card{
+    background:transparent; backdrop-filter:none; -webkit-backdrop-filter:none;
+    border:none; border-top:1px solid var(--line);
+    border-radius:0;
+  }
+  .map-card .link-card:hover{ transform:none; background:rgba(245,243,238,0.03); }
 
   footer{ text-align:center; color:var(--gray); font-size:12px; padding-top:12px; }
   footer .fh{ font-family:'Poppins',sans-serif; font-weight:600; letter-spacing:0.04em; }
@@ -252,10 +264,36 @@
 
   <!-- ============ LINKS ============ -->
   <div class="links">
-    <a class="link-pill primary" href="https://apps.apple.com/br/app/tnt-barbearia/id6793197103" target="_blank" rel="noopener">Baixe nosso app (iOS) 📲</a>
-    <a class="link-pill primary" href="https://play.google.com/store/apps/details?id=tntbarbearia.bestbarbers.app&pcampaignid=web_share" target="_blank" rel="noopener">Baixe nosso app (Android) 🤖</a>
-    <a class="link-pill" href="https://www.instagram.com/barbeariatnt?igsh=YW03ZzBlYnc1d2pw" target="_blank" rel="noopener">Seguir no Instagram 📸</a>
-    <a class="link-pill" href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Freixos+55+Dos+Casas+S%C3%A3o+Bernardo+do+Campo" target="_blank" rel="noopener">Como chegar 📍</a>
+    <a class="link-card primary" href="https://apps.apple.com/br/app/tnt-barbearia/id6793197103" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.2h2"/></svg>
+      </span>
+      <span class="link-body">
+        <span class="title">Baixe nosso app</span>
+        <span class="sub">iOS · App Store</span>
+      </span>
+      <span class="link-chevron">›</span>
+    </a>
+    <a class="link-card primary" href="https://play.google.com/store/apps/details?id=tntbarbearia.bestbarbers.app&pcampaignid=web_share" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.2h2"/></svg>
+      </span>
+      <span class="link-body">
+        <span class="title">Baixe nosso app</span>
+        <span class="sub">Android · Google Play</span>
+      </span>
+      <span class="link-chevron">›</span>
+    </a>
+    <a class="link-card" href="https://www.instagram.com/barbeariatnt?igsh=YW03ZzBlYnc1d2pw" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="var(--red)" stroke="none"/></svg>
+      </span>
+      <span class="link-body">
+        <span class="title">Instagram</span>
+        <span class="sub">@barbeariatnt</span>
+      </span>
+      <span class="link-chevron">›</span>
+    </a>
   </div>
 
   <!-- ============ TEAM ============ -->
@@ -300,15 +338,24 @@
   <div class="drag-hint gallery-hint">arraste para o lado →</div>
 
   <!-- ============ ADDRESS ============ -->
-  <div class="address-card">
-    <span class="link-icon">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z" stroke="#f5f3ee" stroke-width="2"/><circle cx="12" cy="9.5" r="2.5" stroke="#f5f3ee" stroke-width="2"/></svg>
-    </span>
-    <div>
-      <h3>Endereço</h3>
-      <p>Rua dos Freixos, nº 55 — Dos Casas, São Bernardo do Campo</p>
-      <a class="maps" href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Freixos+55+Dos+Casas+S%C3%A3o+Bernardo+do+Campo" target="_blank" rel="noopener">Abrir no Google Maps →</a>
+  <div class="map-card">
+    <div class="map-preview">
+      <iframe src="https://www.google.com/maps?q=Rua+dos+Freixos,55+-+Dos+Casas,+S%C3%A3o+Bernardo+do+Campo&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da Barbearia TNT"></iframe>
+      <a class="maps-badge" href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Freixos+55+Dos+Casas+S%C3%A3o+Bernardo+do+Campo" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        Maps
+      </a>
     </div>
+    <a class="link-card" href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Freixos+55+Dos+Casas+S%C3%A3o+Bernardo+do+Campo" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      </span>
+      <span class="link-body">
+        <span class="title">Como chegar</span>
+        <span class="sub">Rua dos Freixos, nº 55 — Dos Casas, São Bernardo do Campo</span>
+      </span>
+      <span class="link-chevron">›</span>
+    </a>
   </div>
 
   <footer>
