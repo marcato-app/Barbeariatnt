@@ -55,13 +55,41 @@
       var(--black);
   }
 
-  /* ---------- PROFILE ---------- */
-  .profile{ text-align:center; margin-bottom:32px; }
-  .profile-logo{
-    width:96px; height:96px; border-radius:50%;
-    margin:0 auto 18px;
-    box-shadow:0 0 0 1px var(--line), 0 12px 30px -10px rgba(200,29,37,0.6);
+  /* ---------- HERO PHOTO ---------- */
+  .hero-photo{
+    position:relative;
+    margin:-56px -24px 0;
+    height:340px;
+    overflow:hidden;
   }
+  .hero-photo-bg{
+    width:100%; height:100%; object-fit:cover; object-position:50% 38%;
+    display:block;
+  }
+  .hero-photo::before{
+    content:''; position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(11,11,13,.45) 0%, rgba(11,11,13,.15) 32%, rgba(11,11,13,.94) 84%, var(--black) 100%),
+      radial-gradient(ellipse 65% 55% at 50% 60%, rgba(200,29,37,.16), transparent 72%);
+  }
+  .hero-photo-logo{
+    position:absolute; left:50%; bottom:-8px; transform:translateX(-50%);
+    width:124px; z-index:2;
+    filter:
+      drop-shadow(0 20px 18px rgba(0,0,0,.55))
+      drop-shadow(0 0 36px rgba(200,29,37,.5));
+    animation:floatLogo 5s ease-in-out infinite;
+  }
+  @keyframes floatLogo{
+    0%,100%{ transform:translateX(-50%) translateY(0); }
+    50%{ transform:translateX(-50%) translateY(-10px); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-photo-logo{ animation:none; }
+  }
+
+  /* ---------- PROFILE ---------- */
+  .profile{ text-align:center; margin-bottom:32px; padding-top:20px; }
   .profile h1{ font-size:clamp(30px,7vw,40px); }
   .profile p.tag{ color:var(--gray); margin-top:10px; font-size:14px; line-height:1.5; }
 
@@ -192,9 +220,14 @@
 
 <div class="page">
 
+  <!-- ============ HERO PHOTO ============ -->
+  <div class="hero-photo">
+    <img class="hero-photo-bg" src="assets/loja/interior.jpeg" alt="Interior da Barbearia TNT">
+    <img class="hero-photo-logo" src="assets/marca/logo-tnt-float.png" alt="Barbearia TNT">
+  </div>
+
   <!-- ============ PROFILE ============ -->
   <div class="profile">
-    <img class="profile-logo" src="assets/marca/logo-tnt-square.png" alt="Barbearia TNT">
     <h1>Barbearia <span style="color:var(--red)">TNT</span></h1>
     <p class="tag">Estilo, precisão e atitude. Confira nossos canais, agende seu horário e venha conhecer a barbearia.</p>
   </div>
