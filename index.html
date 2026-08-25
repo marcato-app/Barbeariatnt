@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia TNT — Link na Bio</title>
+<meta name="description" content="Barbearia TNT — agende seu horário, siga no Instagram e conheça o endereço.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0b0b0d;
+    --black-2:#141416;
+    --red:#c81d25;
+    --red-dark:#7c1116;
+    --white:#f5f3ee;
+    --spark:#ffb020;
+    --gray:#8a8a86;
+    --line:rgba(245,243,238,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Poppins', sans-serif;
+    min-height:100vh;
+  }
+  a{color:inherit; text-decoration:none;}
+  .eyebrow{
+    font-family:'Poppins', sans-serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--spark);
+    font-weight:600;
+  }
+  h1,h2,h3{
+    font-family:'Poppins', sans-serif;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    line-height:1.1;
+  }
+
+  .page{
+    max-width:460px;
+    margin:0 auto;
+    padding:56px 24px 40px;
+    position:relative;
+  }
+  body{
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(200,29,37,0.25), transparent 60%),
+      var(--black);
+  }
+
+  /* ---------- HERO PHOTO ---------- */
+  .hero-photo{
+    position:relative;
+    margin:-56px -24px 0;
+    height:340px;
+    overflow:hidden;
+  }
+  .hero-photo-bg{
+    width:100%; height:100%; object-fit:cover; object-position:50% 38%;
+    display:block;
+  }
+  .hero-photo::before{
+    content:''; position:absolute; inset:0; z-index:1;
+    background:
+      linear-gradient(180deg, rgba(11,11,13,.5) 0%, rgba(11,11,13,.18) 28%, rgba(11,11,13,.85) 62%, var(--black) 92%),
+      radial-gradient(ellipse 65% 55% at 50% 55%, rgba(200,29,37,.16), transparent 72%);
+  }
+  .hero-photo::after{
+    content:''; position:absolute; inset:0; z-index:1;
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    mask-image:linear-gradient(180deg, transparent 0%, transparent 48%, black 68%, black 100%);
+    -webkit-mask-image:linear-gradient(180deg, transparent 0%, transparent 48%, black 68%, black 100%);
+  }
+  .hero-photo-logo{
+    position:absolute; left:50%; bottom:-8px; transform:translateX(-50%);
+    width:124px; z-index:2;
+    filter:
+      drop-shadow(0 20px 18px rgba(0,0,0,.55))
+      drop-shadow(0 0 36px rgba(200,29,37,.5));
+    animation:floatLogo 5s ease-in-out infinite;
+  }
+  @keyframes floatLogo{
+    0%,100%{ transform:translateX(-50%) translateY(0); }
+    50%{ transform:translateX(-50%) translateY(-10px); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-photo-logo{ animation:none; }
+  }
+
+  /* ---------- PROFILE ---------- */
+  .profile{ text-align:center; margin-bottom:32px; padding-top:20px; }
+  .profile h1{ font-size:clamp(30px,7vw,40px); }
+  .profile p.tag{ color:var(--gray); margin-top:10px; font-size:14px; line-height:1.5; }
+
+  /* ---------- LINK BUTTONS ---------- */
+  .links{ display:flex; flex-direction:column; gap:12px; margin-bottom:36px; }
+  .link-card{
+    display:flex; align-items:center; gap:14px;
+    background:rgba(20,20,22,0.55);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:15px 16px;
+    transition:transform .15s, border-color .15s, background .15s;
+  }
+  .link-card:hover{ transform:translateY(-2px); border-color:var(--red); }
+  .link-card.primary{ border-color:rgba(200,29,37,0.55); }
+  .link-card.primary:hover{ border-color:var(--red); }
+  .link-icon{
+    width:42px; height:42px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(200,29,37,0.12);
+    border:1px solid rgba(200,29,37,0.35);
+    flex-shrink:0;
+  }
+  .link-icon svg{ width:20px; height:20px; }
+  .link-body{ flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
+  .link-body .title{ font-weight:700; font-size:15px; }
+  .link-body .sub{ font-size:12px; color:var(--gray); }
+  .link-chevron{ color:var(--spark); font-size:20px; flex-shrink:0; line-height:1; }
+
+  /* ---------- TEAM ---------- */
+  .section-head{ margin-bottom:18px; text-align:center; }
+  .section-head h2{ font-size:clamp(24px,5.5vw,30px); margin-top:8px; }
+  .team-scroll{
+    display:flex; gap:14px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    cursor:grab;
+    margin:0 -24px 0;
+    padding:4px 24px 16px;
+    mask-image:linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+    -webkit-mask-image:linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+  }
+  .team-scroll::-webkit-scrollbar{ display:none; }
+  .team-scroll.dragging{ cursor:grabbing; scroll-snap-type:none; }
+  .member{
+    flex:0 0 auto;
+    width:44%; max-width:190px;
+    background:var(--black-2);
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+    text-align:center;
+    scroll-snap-align:start;
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .member::before{
+    content:''; display:block; height:3px;
+    background:linear-gradient(90deg, var(--red), var(--red-dark));
+  }
+  .member:hover{
+    border-color:var(--red); transform:translateY(-4px);
+    box-shadow:0 16px 32px -16px rgba(200,29,37,0.55);
+  }
+  .member .photo-wrap{
+    width:100%; aspect-ratio:3/4; overflow:hidden; background:#000;
+  }
+  .member .photo-wrap img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; transition:transform .5s ease; }
+  .member:hover .photo-wrap img{ transform:scale(1.07); }
+  .member .info{ padding:13px 10px 17px; }
+  .member .info h3{
+    font-family:'Poppins',sans-serif; font-weight:700;
+    font-size:15px; letter-spacing:0; line-height:1.15;
+  }
+  .member .info p{ font-size:11px; color:var(--spark); margin-top:6px; font-family:'Poppins',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; }
+
+  /* ---------- GALLERY (MURAL DE CORTES) ---------- */
+  .gallery-scroll{
+    display:flex; gap:14px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    cursor:grab;
+    margin:0 -24px 36px;
+    padding:4px 24px 16px;
+    mask-image:linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+    -webkit-mask-image:linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+  }
+  .gallery-scroll::-webkit-scrollbar{ display:none; }
+  .gallery-scroll.dragging{ cursor:grabbing; scroll-snap-type:none; }
+  .gallery-item{
+    flex:0 0 auto;
+    width:66%; max-width:250px;
+    aspect-ratio:3/4;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    scroll-snap-align:start;
+    background:#000;
+  }
+  .gallery-item img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; }
+  .drag-hint{
+    text-align:center;
+    font-size:11px; color:var(--gray); font-family:'Poppins',sans-serif; font-weight:600;
+    letter-spacing:0.06em; text-transform:uppercase;
+  }
+  .drag-hint.team-hint{ margin:-16px 0 36px; }
+  .drag-hint.gallery-hint{ margin:-24px 0 36px; }
+
+  /* ---------- MAP / ADDRESS ---------- */
+  .map-card{
+    background:rgba(20,20,22,0.55);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:36px;
+  }
+  .map-preview{ position:relative; height:170px; background:#141416; }
+  .map-preview iframe{
+    width:100%; height:100%; border:0; display:block;
+    filter:grayscale(.2) brightness(.82) contrast(1.05);
+    pointer-events:none;
+  }
+  .maps-badge{
+    position:absolute; top:12px; left:12px;
+    display:inline-flex; align-items:center; gap:5px;
+    background:rgba(11,11,13,0.75);
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    border:1px solid var(--line);
+    color:var(--white); font-size:12px; font-weight:600;
+    padding:7px 12px; border-radius:999px;
+  }
+  .map-card .link-card{
+    background:transparent; backdrop-filter:none; -webkit-backdrop-filter:none;
+    border:none; border-top:1px solid var(--line);
+    border-radius:0;
+  }
+  .map-card .link-card:hover{ transform:none; background:rgba(245,243,238,0.03); }
+
+  footer{ text-align:center; color:var(--gray); font-size:12px; padding-top:12px; }
+  footer .fh{ font-family:'Poppins',sans-serif; font-weight:600; letter-spacing:0.04em; }
+
+  @media (max-width:360px){
+    .page{ padding:44px 16px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ============ HERO PHOTO ============ -->
+  <div class="hero-photo">
+    <img class="hero-photo-bg" src="assets/loja/interior.jpeg" alt="Interior da Barbearia TNT">
+    <img class="hero-photo-logo" src="assets/marca/logo-tnt-float.png" alt="Barbearia TNT">
+  </div>
+
+  <!-- ============ PROFILE ============ -->
+  <div class="profile">
+    <h1>Barbearia <span style="color:var(--red)">TNT</span></h1>
+    <p class="tag">Estilo, precisão e atitude. Confira nossos canais, agende seu horário e venha conhecer a barbearia.</p>
+  </div>
+
+  <!-- ============ LINKS ============ -->
+  <div class="links">
+    <a class="link-card primary" href="https://apps.apple.com/br/app/tnt-barbearia/id6793197103" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.2h2"/></svg>
+      </span>
+      <span class="link-body">
+        <span class="title">Baixe nosso app</span>
+        <span class="sub">iOS · App Store</span>
+      </span>
+      <span class="link-chevron">›</span>
+    </a>
+    <a class="link-card primary" href="https://play.google.com/store/apps/details?id=tntbarbearia.bestbarbers.app&pcampaignid=web_share" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.2h2"/></svg>
+      </span>
+      <span class="link-body">
+        <span class="title">Baixe nosso app</span>
+        <span class="sub">Android · Google Play</span>
+      </span>
+      <span class="link-chevron">›</span>
+    </a>
+    <a class="link-card" href="https://www.instagram.com/barbeariatnt?igsh=YW03ZzBlYnc1d2pw" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="var(--red)" stroke="none"/></svg>
+      </span>
+      <span class="link-body">
+        <span class="title">Instagram</span>
+        <span class="sub">@barbeariatnt</span>
+      </span>
+      <span class="link-chevron">›</span>
+    </a>
+  </div>
+
+  <!-- ============ TEAM ============ -->
+  <div class="section-head">
+    <div class="eyebrow">A equipe</div>
+    <h2>Nossos barbeiros</h2>
+  </div>
+  <div class="team-scroll" id="teamScroll">
+    <div class="member">
+      <div class="photo-wrap"><img src="assets/equipe/caiky-dantas.jpeg" alt="Caiky Dantas" loading="lazy"></div>
+      <div class="info"><h3>Caiky Dantas</h3><p>Barbeiro</p></div>
+    </div>
+    <div class="member">
+      <div class="photo-wrap"><img src="assets/equipe/kaua-morais.jpeg" alt="Kaua Morais" loading="lazy"></div>
+      <div class="info"><h3>Kaua Morais</h3><p>Barbeiro</p></div>
+    </div>
+    <div class="member">
+      <div class="photo-wrap"><img src="assets/equipe/pedro.jpeg" alt="Pedro" loading="lazy"></div>
+      <div class="info"><h3>Pedro</h3><p>Barbeiro</p></div>
+    </div>
+    <div class="member">
+      <div class="photo-wrap"><img src="assets/equipe/arthur-hengler.jpeg" alt="Arthur Hengler" loading="lazy"></div>
+      <div class="info"><h3>Arthur Hengler</h3><p>Barbeiro</p></div>
+    </div>
+    <div class="member">
+      <div class="photo-wrap"><img src="assets/equipe/heryck-saymohn.jpeg" alt="Heryck Saymohn" loading="lazy"></div>
+      <div class="info"><h3>Heryck Saymohn</h3><p>Barbeiro</p></div>
+    </div>
+  </div>
+  <div class="drag-hint team-hint">arraste para o lado →</div>
+
+  <!-- ============ GALLERY ============ -->
+  <div class="section-head">
+    <div class="eyebrow">Nosso trabalho</div>
+    <h2>Mural de cortes</h2>
+  </div>
+  <div class="gallery-scroll" id="gallery">
+    <div class="gallery-item"><img src="assets/cortes/corte-1.jpeg" alt="Corte feito na Barbearia TNT" loading="lazy"></div>
+    <div class="gallery-item"><img src="assets/cortes/corte-2.jpeg" alt="Corte feito na Barbearia TNT" loading="lazy"></div>
+    <div class="gallery-item"><img src="assets/cortes/corte-3.jpeg" alt="Corte feito na Barbearia TNT" loading="lazy"></div>
+  </div>
+  <div class="drag-hint gallery-hint">arraste para o lado →</div>
+
+  <!-- ============ ADDRESS ============ -->
+  <div class="map-card">
+    <div class="map-preview">
+      <iframe src="https://www.google.com/maps?q=Rua+dos+Freixos,55+-+Dos+Casas,+S%C3%A3o+Bernardo+do+Campo&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa da Barbearia TNT"></iframe>
+      <a class="maps-badge" href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Freixos+55+Dos+Casas+S%C3%A3o+Bernardo+do+Campo" target="_blank" rel="noopener">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        Maps
+      </a>
+    </div>
+    <a class="link-card" href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Freixos+55+Dos+Casas+S%C3%A3o+Bernardo+do+Campo" target="_blank" rel="noopener">
+      <span class="link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      </span>
+      <span class="link-body">
+        <span class="title">Como chegar</span>
+        <span class="sub">Rua dos Freixos, nº 55 — Dos Casas, São Bernardo do Campo</span>
+      </span>
+      <span class="link-chevron">›</span>
+    </a>
+  </div>
+
+  <footer>
+    <div class="fh">BARBEARIA TNT</div>
+    <div style="margin-top:4px;">© 2026 · Todos os direitos reservados</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  function enableDrag(el){
+    if(!el) return;
+    var isDown = false, startX = 0, scrollStart = 0;
+    el.addEventListener('pointerdown', function(e){
+      if(e.pointerType !== 'mouse') return;
+      isDown = true;
+      el.classList.add('dragging');
+      startX = e.clientX;
+      scrollStart = el.scrollLeft;
+      el.setPointerCapture(e.pointerId);
+    });
+    el.addEventListener('pointermove', function(e){
+      if(!isDown) return;
+      el.scrollLeft = scrollStart - (e.clientX - startX);
+    });
+    function stopDrag(){ isDown = false; el.classList.remove('dragging'); }
+    el.addEventListener('pointerup', stopDrag);
+    el.addEventListener('pointercancel', stopDrag);
+    el.addEventListener('pointerleave', stopDrag);
+  }
+  enableDrag(document.getElementById('teamScroll'));
+  enableDrag(document.getElementById('gallery'));
+})();
+</script>
+</body>
+</html>
